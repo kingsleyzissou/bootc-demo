@@ -3,6 +3,17 @@ COPY demo /slides
 RUN /app/bin/reveal-md.js /slides/slides.md --static public --theme white
 
 FROM quay.io/fedora/fedora-bootc:latest
+# thanks Ondrej 🙏
+# https://github.com/ondrejbudai/fedora-bootc-raspi/tree/main
+# firmware stuff needed to boot on raspberry pi
+RUN dnf install -y bcm2711-firmware uboot-images-armv8 && \
+  cp -P /usr/share/uboot/rpi_arm64/u-boot.bin /boot/efi/rpi-u-boot.bin && \
+  mkdir -p /usr/lib/bootc-raspi-firmwares && \
+  cp -a /boot/efi/. /usr/lib/bootc-raspi-firmwares/ && \
+  dnf remove -y bcm2711-firmware uboot-images-armv8 && \
+  mkdir /usr/bin/bootupctl-orig && \
+  mv /usr/bin/bootupctl /usr/bin/bootupctl-orig/ && \
+  dnf clean all
 
 RUN dnf -y install tailscale pip cargo httpd fuse-overlayfs && dnf clean all
 
@@ -17,6 +28,9 @@ RUN pip3 install 2048-cli
 
 # /usr is read-only at runtime
 COPY --from=builder /slides/public /usr/share/www/html
+
+# shim for the bootloader
+COPY bootupctl-shim /usr/bin/bootupctl
 
 COPY passwordless-sudo /etc/sudoers.d/wheel-passwordless-sudo
 COPY hostname.service /etc/systemd/system/hostname.service
