@@ -1,0 +1,11 @@
+[Unit]
+Description=Re-configure hostname
+After=local-fs.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/bin/hostnamectl set-hostname #HOSTNAME
+
+[Install]
+WantedBy=multi-user.target default.target
