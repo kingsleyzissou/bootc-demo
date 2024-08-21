@@ -1,0 +1,16 @@
+{
+  "blueprint": {
+    "customizations": {
+      "user": [
+        {
+          "name": "kingsley",
+          "password": "password42",
+          "key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBCWAwAqV3weCALKWrSAAHir+oIga1TU5VL4hnjWWU2x",
+          "groups": [
+            "wheel"
+          ]
+        }
+      ]
+    }
+  }
+}

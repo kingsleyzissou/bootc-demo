@@ -156,6 +156,7 @@ RUN useradd -G wheel exampleuser && \
 
 ### Links
 
+- [github.com/kingsleyzissou/bootc-demo](github.com/kingsleyzissou/bootc-demo)
 - [github.com/osbuild/osbuild](github.com/osbuild/osbuild)
 - [github.com/osbuild/images](github.com/osbuild/images)
 - [github.com/osbuild/bootc-image-builder](github.com/osbuild/bootc-image-builder)

@@ -1,0 +1,11 @@
+[Unit]
+Description=Httpd container
+After=network.target
+
+[Container]
+Image=docker.io/library/httpd:latest
+Volume=/usr/share/www/html:/usr/local/apache2/htdocs
+PublishPort=80:80
+
+[Install]
+WantedBy=multi-user.target default.target
